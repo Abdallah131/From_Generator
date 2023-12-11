@@ -6,6 +6,7 @@
 }
 .App {
   height: 100vh;
+  overflow: hidden;
 }
 .header--container {
   height: 60px;
@@ -47,6 +48,7 @@
   width: 500px;
   height: 93.5vh;
   border: 1px solid rgb(196, 196, 196);
+  background-color: #f1f1f1;
 }
 .leftbar--headers {
   height: 50px;
@@ -60,12 +62,43 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  margin: 50px;
 }
 .leftbar--headers--elements p:hover{
   border-bottom: 1px solid #24a68a;
 }
-.fields--container{
-  height: 100%;
+.fields--container {
   background-color: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.field--container {
+  background: white;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(196, 196, 196);
+  border-radius: 12px;
+  width: calc(50% - 20px);
+  margin-top: 20px;
+  height: 40px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.field--container img {
+  height: 20px;
+  margin-right: 20px;
+  margin-left: 40px;
+  opacity: 0.7;
+}
+.main--container {
+  display: flex;
+}
+.Form--container{
+  height: 80vh;
+  width: 900px;
+  margin-top: 80px;
+  box-shadow: 1px 2px 16px 0px rgba(0,0,0,0.4);
+  margin-left: 220px;
+  background: white;
+  border-radius: 50px;
 }
