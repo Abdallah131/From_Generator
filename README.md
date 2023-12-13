@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Start Project
+
+1) Clone files from github
+2) install missing modules
+3) Start the project
+4) Start the server
+
 ## Available Scripts
 
 In the project directory, you can run:
