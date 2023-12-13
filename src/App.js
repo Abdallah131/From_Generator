@@ -1,12 +1,19 @@
 import './App.css';
-import Header from './components/Header';
-import Main from './components/Main';
+import Builder from './Pages/Builder';
+import Saved from './Pages/SavedForms';
+import About from './Pages/About';
+
+import { BrowserRouter as Router, Routes,Route } from 'react-router-dom';
 function App() {
   return (
-    <div className="App">
-        <Header />
-        <Main />
-    </div>
+    <Router>
+      <Routes>
+        <Route index element={<Builder />}/>
+        <Route path="/form/:formid" element={<Builder />} />
+        <Route path="/Saved" element={<Saved />} />
+        <Route path="/About" element={<About />} />
+      </Routes>
+  </Router>
   );
 }
 

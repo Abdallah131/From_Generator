@@ -4,12 +4,11 @@
   margin: 0;
   font-family: Cairo;
 }
-.App {
-  height: 100vh;
-  overflow: hidden;
+a {
+  text-decoration: none;
 }
 .header--container {
-  height: 60px;
+  height: 66px;
   background-color: #2d3951;
   display: flex;
   align-items: center;
@@ -18,6 +17,7 @@
   background-color: black;
   height: 100%;
   width: 70px;
+  height: 66px;
 }
 .image--container img {
   padding: 18px;
@@ -32,6 +32,9 @@
   height: 100%;
   display: flex;
   align-items: center;
+}
+.main--elements--container:active{
+  background-color: #24a68a;
 }
 .main--elements--container:hover{
   background-color: #24a68a;
@@ -95,14 +98,14 @@
   display: flex;
 }
 .Form--container{
-  height: 83vh;
+  min-height: 720px;
+  height: 100%;
   width: 800px;
   margin-top: 60px;
   box-shadow: 1px 2px 16px 0px rgba(0,0,0,0.4);
   margin-left: 280px;
   background: white;
   border-radius: 50px;
-  overflow: hidden;
 }
 .Form--container h1 {
   margin-left: 350px;
@@ -236,4 +239,23 @@
 }
 .items--styles:hover {
   transform: scale(1.05);
+}
+.SavedForm {
+  display: flex;
+  width: 400px;
+  box-shadow: 2px 4px 12px 0px rgba(0,0,0,0.35);
+  padding: 20px;
+  margin-top: 50px;
+  border-radius: 10px;
+  margin-left: 50px;
+  height: 100%;
+  transition: 0.7s;
+}
+.SavedForm:hover {
+  transform: scale(1.05);
+}
+.SavedForm img{
+  height: 15px;
+  margin-right: -5px;
+  cursor: pointer;
 }

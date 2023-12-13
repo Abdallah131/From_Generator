@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Save from "../assets/images/saveblack.png"
 import SaveFull from "../assets/images/saveblackfull.png"
 import Delete from "../assets/images/remove.png"
 import More from "../assets/images/more.png"
+import Swal from "sweetalert2";
+import { useNavigate ,useParams} from "react-router";
 
 export default function Form() {
   const [elements, setElements] = useState([]);
@@ -127,28 +129,28 @@ export default function Form() {
         return (
           <div className="dropped--field" >
             <p onBlur={handleFormChange} suppressContentEditableWarning contentEditable="true" data-name="textTitle">{formData.fieldsLabels.textTitle}</p>
-            <input type="text" placeholder="PlaceHoder" />
+            <input type="text" placeholder="Enter Data" />
           </div>
         )
       case "Password Input":
         return (
           <div className="dropped--field" >
             <p onBlur={handleFormChange} suppressContentEditableWarning contentEditable="true" data-name="passwordTitle">{formData.fieldsLabels.passwordTitle}</p>
-            <input type="password" placeholder="PlaceHoder"/>
+            <input type="password" placeholder="Enter your password"/>
           </div>
         )
       case "Email Input":
         return (
           <div className="dropped--field" >
             <p onBlur={handleFormChange} suppressContentEditableWarning contentEditable="true" data-name="emailTitle">{formData.fieldsLabels.emailTitle}</p>
-            <input type="email" placeholder="PlaceHoder" />
+            <input type="email" placeholder="Enter your email" />
           </div>
         )
       case "Textarea":
         return (
           <div className="dropped--field" style={{height:"100%"}}>
             <p onBlur={handleFormChange} suppressContentEditableWarning contentEditable="true" data-name="textareaTitle">{formData.fieldsLabels.textareaTitle}</p>
-            <textarea placeholder="PlaceHoder"/>
+            <textarea placeholder="Your Message..."/>
           </div>
         )
       case "Radio Buttons":
@@ -207,11 +209,66 @@ export default function Form() {
     e.preventDefault();
   }
 
-  function SaveForm() {
-    sethandleSavePicture(prev => !prev);
-    console.log("Saved Form Data:", formData);
-  }
+  const navigate = useNavigate();
+  const {formid} = useParams();
+  
+  useEffect(() => {
+    fetch("/retrieveForm", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId: formid,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.elements) {
+          setElements(data.elements);
+          setFormData({
+            elements: data.elements,
+            title: data.title || "Form",
+            fieldsLabels: data.fieldsLabels || formData.fieldsLabels,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }, [formid, formData.fieldsLabels]);
 
+  function SaveForm() {
+    sethandleSavePicture((prev) => !prev);
+    const formInfomartions = {
+      elements: elements,
+      formData: formData,
+    };
+    fetch("/addForm", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formInfomartions),
+    })
+      .then((response) => response.text())
+      .then(() => {
+        console.log("Success");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+      Swal.fire({
+        title: "Your form has been saved!",
+        icon: "success",
+        confirmButtonText: "View saved forms?",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/Saved")
+        }
+      });
+  }
+  
   function deleteFormItem(index) {
     const updatedElements = [...elements];
     updatedElements.splice(index, 1);
@@ -252,7 +309,6 @@ export default function Form() {
         );
     }
   }
-  
 
   return (
     <div
